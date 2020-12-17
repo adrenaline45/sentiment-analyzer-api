@@ -4,9 +4,13 @@ const ErrorName = {
     UNAUTHORIZED: 'UNAUTHORIZED',
     INVALID_TOKEN: 'INVALID_TOKEN',
     UNABLE_TO_LOGIN: 'UNABLE_TO_LOGIN',
+    INVALID_REQUEST: 'INVALID_REQUEST',
+    LEXICON_NOT_FOUND: 'LEXICON_NOT_FOUND',
     MISSING_BODY_PROPS: 'MISSING_BODY_PROPS',
     USER_ALREADY_EXISTS: 'USER_ALREADY_EXISTS',
-    INVALID_USER_PASSWORD: 'INVALID_USER_PASSWORD'
+    INVALID_RATING_VALUE: 'INVALID_RATING_VALUE',
+    INVALID_USER_PASSWORD: 'INVALID_USER_PASSWORD',
+    LEXICON_ALREADY_EXISTS: 'LEXICON_ALREADY_EXISTS'
 }
 
 class ApiError extends Error {
@@ -82,12 +86,52 @@ class MissingBodyPropsError extends ApiError {
     }
 }
 
+class InvalidRatingValue extends ApiError {
+    constructor() {
+        super();
+        this.name = ErrorName.INVALID_RATING_VALUE;
+        this.message = 'Invalid rating value.';
+        this.httpStatusCode = HttpStatusCode.BAD_REQUEST;
+    }
+}
+
+class LexiconAlreadyExists extends ApiError {
+    constructor() {
+        super();
+        this.name = ErrorName.LEXICON_ALREADY_EXISTS;
+        this.message = 'Lexicon word already exists.';
+        this.httpStatusCode = HttpStatusCode.BAD_REQUEST;
+    }
+}
+
+class LexiconNotFound extends ApiError {
+    constructor() {
+        super();
+        this.name = ErrorName.LEXICON_NOT_FOUND;
+        this.message = 'Lexicon not found.';
+        this.httpStatusCode = HttpStatusCode.NOT_FOUND;
+    }
+}
+
+class InvalidRequest extends ApiError {
+    constructor() {
+        super();
+        this.name = ErrorName.INVALID_REQUEST;
+        this.message = 'Invalid request.';
+        this.httpStatusCode = HttpStatusCode.BAD_REQUEST;
+    }
+}
+
 module.exports = {
     ApiError,
     ErrorName,
+    InvalidRequest,
+    LexiconNotFound,
     UnauthorizedError,
     InvalidTokenError,
+    InvalidRatingValue,
     UnableToLoginError,
+    LexiconAlreadyExists,
     MissingBodyPropsError,
     UserAlreadyExistsError,
     InvalidUserPasswordError
